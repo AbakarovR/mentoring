@@ -1,0 +1,12 @@
+<div class="card">
+    <div *ngFor="let user of usersService.users$ | async">
+        <app-user-card [user]="user" 
+            (deleteUser)="deleteUser($event)" 
+            (editeUser)="editeUser($event)">
+        </app-user-card>
+    </div>
+</div>
+
+<button mat-mini-fab color="primary" class="btn" (click)="openCreateDialog()">
+    <mat-icon>person add</mat-icon>
+</button>
