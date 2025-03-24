@@ -19,25 +19,25 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditeUserDialogComponent {
-  public readonly data = inject<{user: User}>(MAT_DIALOG_DATA);
+    public readonly data = inject<{user: User}>(MAT_DIALOG_DATA);
 
-  editeForm = new FormGroup ({
-    id: new FormControl(this.data.user.id),
-    name: new FormControl(this.data.user.name, [Validators.required, Validators.minLength(3)]),
-    email: new FormControl(this.data.user.email, [Validators.required, Validators.email]),
-    website: new FormControl(this.data.user.website, [Validators.required, Validators.minLength(4)]),
-    company: new FormGroup ({
-        name: new FormControl(this.data.user.company.name, [Validators.required, Validators.minLength(4)]),
-    })
-});
+    editeForm = new FormGroup ({
+        id: new FormControl(this.data.user.id),
+        name: new FormControl(this.data.user.name, [Validators.required, Validators.minLength(3)]),
+        email: new FormControl(this.data.user.email, [Validators.required, Validators.email]),
+        website: new FormControl(this.data.user.website, [Validators.required, Validators.minLength(4)]),
+        company: new FormGroup ({
+            name: new FormControl(this.data.user.company.name, [Validators.required, Validators.minLength(4)]),
+        })
+    });
 
-get userWithUpdatedField() {
-    return {
-        ...this.editeForm.value,
-    };
-}
+    get userWithUpdatedField() {
+        return {
+            ...this.editeForm.value,
+        };
+    }
 
-  onCancel() {
-    this.editeForm.reset();
-  }
+    onCancel() {
+        this.editeForm.reset();
+    }
 }

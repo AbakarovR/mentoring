@@ -37,8 +37,7 @@ export class UsersListComponent {
   	}
 
   	openCreateDialog() {
-    	const dialogRef = this.dialog.open(CreateUserDialogComponent, {
-  		});
+    	const dialogRef = this.dialog.open(CreateUserDialogComponent, {});
 
  	 	dialogRef.afterClosed().subscribe((createResult: miniUser | undefined) => {
     		if (createResult) {
