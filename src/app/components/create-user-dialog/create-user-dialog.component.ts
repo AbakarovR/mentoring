@@ -18,8 +18,10 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateUserDialogComponent {
+    constructor(private dialogRef: MatDialogRef<CreateUserDialogComponent>) {}
+
     createForm = new FormGroup ({
-        id: new FormControl(''),
+        id: new FormControl(new Date().getTime()),
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
         email: new FormControl('', [Validators.required, Validators.email]),
         website: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -27,8 +29,6 @@ export class CreateUserDialogComponent {
             name: new FormControl('', [Validators.required, Validators.minLength(4)]),
         })
     });
-
-    constructor(private dialogRef: MatDialogRef<CreateUserDialogComponent>) {}
 
     onSubmit() {
         if (this.createForm.valid) {
