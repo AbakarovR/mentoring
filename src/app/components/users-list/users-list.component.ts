@@ -29,13 +29,9 @@ export class UsersListComponent {
 	private snackBar = inject(MatSnackBar);
 
   	constructor() {
-    	this.usersApiService.getUsers().subscribe(
-        	(response: any) => {
-            	this.usersService.setUsers(response);
-        	}
-    	)
+    	this.usersService.loadUsers();
   	}
-
+	
   	openCreateDialog() {
     	const dialogRef = this.dialog.open(CreateUserDialogComponent, {});
 
