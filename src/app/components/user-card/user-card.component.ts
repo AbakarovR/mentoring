@@ -4,9 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { User } from '../../interface/user.interface';
-import { EditeUserDialogComponent } from '../edite-user-dialog/edite-user-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
+import { EditeUserDialogComponent } from '../edite-user-dialog/edite-user-dialog.component';
 
 @Component({
   selector: 'app-user-card',

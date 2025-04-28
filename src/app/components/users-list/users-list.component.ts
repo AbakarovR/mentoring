@@ -7,8 +7,10 @@ import { UserCardComponent } from '../user-card/user-card.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { miniUser, User } from '../../interface/user.interface';
 import { UsersApiService } from '../../services/users-api.service';
-import { UsersService } from '../../services/users.service';
 import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
+import { Store } from '@ngrx/store';
+import { UsersActions } from './store/user.actions';
+import { selectUsers } from './store/users.selectors';
 
 
 @Component({
@@ -23,13 +25,16 @@ import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dia
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent {
-	private readonly usersApiService = inject(UsersApiService);
-	public readonly usersService = inject(UsersService);
+	readonly usersApiService = inject(UsersApiService);
+	private readonly store = inject(Store);
+	public readonly users$ = this.store.select(selectUsers);
 	private dialog = inject(MatDialog);
 	private snackBar = inject(MatSnackBar);
 
   	constructor() {
-    	this.usersService.loadUsers();
+		this.usersApiService.getUsers().subscribe((response: any) => {
+			this.store.dispatch(UsersActions.set({ users: response }));
+		})
   	}
 	
   	openCreateDialog() {
@@ -52,25 +57,27 @@ export class UsersListComponent {
     	buttonElement.blur();
   	}
 
-	deleteUser(userId: number) {
-    	this.usersService.deleteUser(userId);
+	deleteUser(id: number) {
+		this.store.dispatch(UsersActions.delete({ id }));
 	}
 
-	editeUser(formDialogValue: User) {
-    	this.usersService.editeUser({
-        	...formDialogValue
-    	});
+	editUser(formDialogValue: User) {
+		this.store.dispatch(UsersActions.edit({ user: formDialogValue }));
 	}
 
 	createUser(formData: miniUser) {
-    	this.usersService.createUser({
-        	id: new Date().getTime(),
-        	name: formData.name,
-        	email: formData.email,
-        	website: formData.website,
-        	company: {
-            	name: formData.company.name,
-        	}
-    	});
+		this.store.dispatch(
+			UsersActions.create({
+				user: {
+					id: new Date().getTime(),
+					name: formData.name,
+					email: formData.email,
+					website: formData.website,
+					company: {
+						name: formData.company.name,
+					},
+				},
+			})
+		);
 	}
 }
