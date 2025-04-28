@@ -37,7 +37,7 @@ export class UsersService {
 		}
 	}
 		
-	editeUser(editedUser: User) {
+	editUser(editedUser: User) {
 		this.usersSubject$.next(
 			this.usersSubject$.value.map(
 				user => {

@@ -56,8 +56,8 @@ export class UsersListComponent {
     	this.usersService.deleteUser(userId);
 	}
 
-	editeUser(formDialogValue: User) {
-    	this.usersService.editeUser({
+	editUser(formDialogValue: User) {
+    	this.usersService.editUser({
         	...formDialogValue
     	});
 	}
